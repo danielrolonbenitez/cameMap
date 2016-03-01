@@ -20,16 +20,45 @@
 	//'password' => 'Auth\PasswordController',
 //]);
 
+
+/*panel y validacion por login*/
 Route::get('/', 'LoginController@index');
-Route::post('/validaUser', 'LoginController@validaUser');
+Route::post('/validaUser', [ 'as'=>'validaUser' ,'uses'=>'LoginController@validaUser']);
 
 
-Route::get('registrarse',function(){
-
- return view('Login/registrarse');
-});
-Route::post('/registerUser', 'LoginController@registerUser');
+/*panel y validacion  de  registro*/
+Route::get('registrarse',function(){return view('Login/registrarse');});
+Route::post('/registerUser',['as'=>'registerUser', 'uses'=>'LoginController@registerUser']);
 
 //begin negocio//
 
+//verifica que el usuario este autenticado para poder ver la vista negocio
+Route::group(['middleware' => 'auth'], function()
+{
 Route::get('negocio','NegocioController@index');
+
+});
+
+
+//devuelve por ajax la ciudad segun la provincia seleccionada//
+Route::get('ajaxCiudad', function()
+{
+   $id=$_GET['valor'];
+
+$datos=DB::table('ciudad')->where('provincia_id',$id)->get();
+
+    
+   return $datos;
+});
+
+
+
+
+
+
+
+
+
+
+
+Route::get('logout','Auth\AuthController@getLogout');

@@ -10,7 +10,7 @@
 <div class="row">
 				
 			<div  class="col-lg-4 col-lg-offset-2 loginForm">
-				<form id="pepe" action="{{ action('LoginController@validaUser')}}" method="POST">
+				<form id="pepe" action="{{ route('validaUser')}}" method="POST">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 

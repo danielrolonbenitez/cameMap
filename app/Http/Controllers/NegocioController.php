@@ -5,6 +5,7 @@ use Auth;
 use Request;
 use App\User;
 use Redirect;
+use DB;
 
 class NegocioController extends Controller {
 
@@ -32,18 +33,28 @@ class NegocioController extends Controller {
 	 * @return Response
 	 */
 	public function index()
-	{
-		return view("Negocio.index");
+
+	{     
+
+		//$cant=1;
+       //$resultado=isset($_GET['valor']);
+       
+
+		//$cant=self::ajax();
+
+
+	$provincias=DB::select('select * from provincias');
+
+	$ciudades=DB::select('select * from ciudad where  provincia_id=1 ');
+
+
+
+
+		return view("Negocio.index")->with('provincias', $provincias)->with('ciudades',$ciudades);
 	}
 
 
 	
-   public function store()
-   {
-
-   		
-
-   }
 
 
 
