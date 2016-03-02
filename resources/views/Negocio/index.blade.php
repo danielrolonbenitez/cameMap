@@ -2,6 +2,10 @@
 <head>
 <link rel="stylesheet" href="{{URL::asset('css/bootstrap.css')}}">
 <link rel="stylesheet" href="{{URL::asset('css/main.css')}}">
+<script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+
+
+
 </head>
 
 <body>
@@ -11,114 +15,144 @@
 				
 			<div  class="col-lg-4 col-lg-offset-2 loginForm">
 				<form id="pepe" action="{{ action('LoginController@validaUser')}}" method="POST">
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					
-					<div class="form-group">
-				  			<label >NEGOCIO</label>
-					</div>
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								
+								<div class="form-group">
+							  			<label >NEGOCIO</label>
+								</div>
 
-				 
+											 
 
-				  <div class="form-group">
-				    <label for="razonSocial">Razon Social:</label>
-				    <input type="text" class="form-control" name="razonSocial">
-				  </div>
+											  <div class="form-group">
+											    <label for="razonSocial">Razon Social:</label>
+											    <input type="text" class="form-control" name="razonSocial">
+											  </div>
 
-				  <div class="form-group">
-				    <label for="direccion">Direccion:</label>
-				    <input type="text" class="form-control" name="direccion">
-				  </div>
-				  <div class="form-group">
-				    <label for="provincia">Provincia:</label>
-				    <select  class="form-control" name="provincia" id="provincia">
-					<?php
+											  <div class="form-group">
+											    <label for="direccion">Direccion:</label>
+											    <input type="text" class="form-control" name="direccion">
+											  </div>
+											  <div class="form-group">
+											    <label for="provincia">Provincia:</label>
+											    <select  class="form-control" name="provincia" id="provincia">
+												<?php
 
-						foreach($provincias as $provincia){
+													foreach($provincias as $provincia){
 
-								echo "<option value='{$provincia->idProvincia}'>{$provincia->nombre}</option>";
-						}
+															echo "<option value='{$provincia->idProvincia}'>{$provincia->nombre}</option>";
+													}
 
-					?>
+												?>
 
-				    </select>
-				  </div>
+											    </select>
+											  </div>
 
-					<div class="form-group">
-				    <label for="ciudad">Ciudad:</label>
-				    <select  class="form-control" name="ciudad" id="ciudad">
-							<?php
+												<div class="form-group">
+											    <label for="ciudad">Ciudad:</label>
+											    <select  class="form-control" name="ciudad" id="ciudad">
+														<?php
 
-						foreach($ciudades as $ciudad){
+													foreach($ciudades as $ciudad){
 
-								echo "<option value='{$ciudad->idCiudad}'>{$ciudad->nombre}</option>";
-						}
+															echo "<option value='{$ciudad->idCiudad}'>{$ciudad->nombre}</option>";
+													}
 
-					?>
+												?>
 
-				
+											
 
-					</select>
+												</select>
 
-				  </div>
-					
-				<div class="form-group">
-				    <label for="sitioWeb">Sitio Web:</label>
-				    <input type="text" class="form-control" name="sitioWeb">
-				  </div>
-
-
-				<div class="form-group">
-				    <label for="telefono">Telefono:</label>
-				    <input type="text" class="form-control" name="telefono">
-
-				  </div>
-
-				<div class="form-group">
-				    <label for="rubro">Rubro:</label>
-				    <input type="text" class="form-control" name="rubro">
-
-				  </div>
+											  </div>
+												
+											<div class="form-group">
+											    <label for="sitioWeb">Sitio Web:</label>
+											    <input type="text" class="form-control" name="sitioWeb">
+											  </div>
 
 
-				  <div class="form-group">
-				    <label for="entidad">Entidad:</label>
-				    <input type="text" class="form-control" name="entidad">
+											<div class="form-group">
+											    <label for="telefono">Telefono:</label>
+											    <input type="text" class="form-control" name="telefono">
 
-				  </div>
+											  </div>
 
+											<div class="form-group">
+											    <label for="rubro">Rubro:</label>
+											    <input type="text" class="form-control" name="rubro">
 
-				  <div class="form-group">
-				    <label for="estado">Estado:</label>
-				    <input type="checkbox" name="vehicle" value="Activo">Activo
-
-				  </div>
-
-				  <div class="form-group">
-				    <label for="entidad">Fotos:</label>
-				    <input class="btn btn-warning" name="fotos[]" type="file" multiple/>
-
-				  </div>
+											  </div>
 
 
-					
-					
-				
+											  <div class="form-group">
+											    <label for="entidad">Entidad:</label>
+											    <input type="text" class="form-control" name="entidad">
 
-					
+											  </div>
 
-				  
-				  <button type="submit" class="btn btn-primary">Registrar</button>
-				
+
+											  <div class="form-group">
+											    <label for="estado">Estado:</label>
+											    <input type="checkbox" name="vehicle" value="Activo">Activo
+
+											  </div>
+
+											  <div class="form-group">
+											    <label for="entidad">Fotos:</label>
+											    <input class="btn btn-warning" name="fotos[]" type="file" multiple/>
+
+											  </div>
+
+
+												
+												
+											
+
+												
+
+											  
+											  <button type="submit" class="btn btn-primary">Registrar</button>
+						</form>
 				
 			</div>
-				</form>
+				
 
 </div>
+
+		
+			
+					
+								
+				 <!-- begin mapa -->
+				       <div clas="row">
+				       				<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+
+				                  <div id="mapa"  class="col-lg-4 col-lg-offset-2"  style="widht:300px;height:500px">  </div>
+				      			
+
+				      </div>
+				<!-- end  mapa -->
+
+
+
+
+		
+
+
+
+
+
+
+
+
+
+
 
 <!--script-->
 <script src="{{URL::asset('js/jquery.min.js')}}"></script>
 
 <script src="{{URL::asset('js/bootstrap.js')}}"></script>
+<script src="{{URL::asset('js/googleMaps.js')}}"></script>
 
 
 <script>
@@ -181,38 +215,6 @@ $('select#provincia').on('change',function(){
 
 
 });//cierra funcion principal//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </script>
