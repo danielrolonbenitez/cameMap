@@ -35,7 +35,9 @@ Route::post('/registerUser',['as'=>'registerUser', 'uses'=>'LoginController@regi
 //verifica que el usuario este autenticado para poder ver la vista negocio
 Route::group(['middleware' => 'auth'], function()
 {
-Route::get('negocio','NegocioController@index');
+Route::get('negocioRegister',['as'=>'negocioViewStore' ,'uses'=>'NegocioController@viewStore']);
+
+Route::post('negocioStore',['as'=>'negocioStore','uses'=>'NegocioController@store']);
 
 });
 
@@ -45,7 +47,7 @@ Route::get('ajaxCiudad', function()
 {
    $id=$_GET['valor'];
 
-$datos=DB::table('ciudad')->where('provincia_id',$id)->get();
+$datos=DB::table('ciudades')->where('idProvinciaF',$id)->get();
 
     
    return $datos;

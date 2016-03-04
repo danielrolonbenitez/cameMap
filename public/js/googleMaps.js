@@ -2,17 +2,27 @@ var pridat;
 var map;
 var marker = null;
 var infowindow = null;
+var markers=[];
+
+var lat;
+var lng;
+
 function initialize() {
 
 
-// Create the search box and link it to the UI element.
-        var input = document.getElementById('pac-input');
-        var searchBox = new google.maps.places.SearchBox(input);
-       
+
+
+//end caja de texto//
 
 
 
- var locc = new google.maps.LatLng(49.938682,17.903331);
+
+
+
+
+
+
+ var locc = new google.maps.LatLng(-34.5844583,-58.4230539,1748);
 
  var mapOptions = {
     zoom: 14,
@@ -22,16 +32,16 @@ function initialize() {
 
 map = new google.maps.Map(document.getElementById('mapa'), mapOptions);
 
- map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);// insert input 'pac_input' into map.
- // Bias the SearchBox results towards current map's viewport.
-       
 
-var markers = [];
+//agrega la la caja de texto 
+// Create the search box and link it to the UI element.
+var input = document.getElementById('pac-input');
+var searchBox = new google.maps.places.SearchBox(input);
+map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
 
-// Listen for the event fired when the user selects a prediction and retrieve
-  // more details for that place.
-  searchBox.addListener('places_changed', function() {
+
+searchBox.addListener('places_changed', function() {
     var places = searchBox.getPlaces();
 
     if (places.length == 0) {
@@ -55,14 +65,14 @@ var markers = [];
         scaledSize: new google.maps.Size(25, 25)
       };
 
-      console.log(place);
-
       // Create a marker for each place.
       markers.push(new google.maps.Marker({
         map: map,
         icon: icon,
         title: place.name,
         position: place.geometry.location
+
+
       }));
 
       if (place.geometry.viewport) {
@@ -73,13 +83,23 @@ var markers = [];
       }
     });
     map.fitBounds(bounds);
+    //console.log(markers[0].position.lat());
+    //obtenog la latitud y longitud del mark;
+
+   lat=markers[0].position.lat();
+   lng=markers[0].position.lng();
+    getPosition(lat , lng);
+
   });
 
 
+//end caja de texto//
 
 
 
- //directionsDisplay.setMap(map);
+
+
+ //cofigo mark click event ;
 
 var contentwindow = '<div>your point</div>'
 infowindow = new google.maps.InfoWindow({
@@ -87,8 +107,6 @@ infowindow = new google.maps.InfoWindow({
  });
 
 google.maps.event.addListener(map, 'rightclick', function(event) {
-
-//console.log(event.latLng);
 placeMarker(event.latLng);
 });
 
@@ -97,30 +115,56 @@ placeMarker(event.latLng);
 function placeMarker(location) {
 
 
-if (marker) {
-    marker.setPosition(location);
-  var lat = marker.getPosition().lat();
-  var log = marker.getPosition().lng();
+    // Clear out the old markers.
+    markers.forEach(function(marker) {
+      marker.setMap(null);
+    });
 
+
+
+
+
+if (marker) {//la primera ves entra por falso y crea el marker luego entra por verdadero y mueve la posicion. 
+  marker.setPosition(location);
+  //console.log(marker);
+  lat=marker.position.lat();
+  lng=marker.position.lng();
+  getPosition(lat , lng);
 
 } else {
  marker = new google.maps.Marker({
       position: location,
       map: map,
       title: 'My point',
-      draggable: true,
+      draggable: false,
      });
    // IF I REMOVE THIS PART -> IT WORKS, BUT WITHOUT INFOWINDOW
    google.maps.event.addListener(marker, 'click', function(){
        infowindow.open(map, marker);
-   });
+   }); //console.log("no");
+
+
+  lat=marker.position.lat();
+  lng=marker.position.lng();
+  getPosition(lat , lng);
+
  }
-}
 
 
+}//end inicialite
 
 
+ function getPosition(lat , lng){  
+
+  var latitudBox=document.getElementById('latitud').value=lat;
+  var longitudBox=document.getElementById('longitud').value=lng;
+
+
+  }
 
 
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
+
+//console.log(lat);

@@ -33,7 +33,7 @@ class LoginController extends Controller {
 	 */
 	public function index()
 	{
-		return view("Login.login");
+		return view("Login.loginIndex");
 	}
 
 
@@ -48,7 +48,7 @@ class LoginController extends Controller {
         {            
             
             
-                return redirect('negocio');
+                return redirect::route('negocioViewStore');
                         
  
 		}else {  return "no validado";}
@@ -60,15 +60,15 @@ class LoginController extends Controller {
 public function registerUser()
 
 	{			
-		 $user = new User();
-         $user->nombre= Request::get('nombre');
-         $user->email = Request::get('email');
+		$user = new User();
+        $user->nombre= Request::get('nombre');
+        $user->email = Request::get('email');
         $user->password = Hash::make(Request::get('password'));
         $user->rol=1;
 
         $user->save();
 
-	
+	  return redirect('/');
 		
 
 
