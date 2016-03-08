@@ -6,6 +6,7 @@ use Request;
 use App\User;
 use App\Negocio;
 use App\Fotos;
+use App\NegocioRubro;
 use Redirect;
 use DB;
 
@@ -44,11 +45,12 @@ class NegocioController extends Controller {
 	$provincias=DB::select('select * from provincias');
 
 	$ciudades=DB::select('select * from ciudades where  idProvinciaF=1 '); 
+  $rubros=DB::select('select * from rubros');
+  $entidades=DB::select('select * from entidades');
 
 
 
-
-		return view("Negocio.negocioViewStore")->with('provincias', $provincias)->with('ciudades',$ciudades);
+		return view("Negocio.negocioViewStore")->with('provincias', $provincias)->with('ciudades',$ciudades)->with('rubros',$rubros)->with('entidades',$entidades);
 	}
 
 
@@ -65,7 +67,6 @@ class NegocioController extends Controller {
    	   $negocio->idCiudadF=Request::get('ciudad');
    	   $negocio->sitioWeb=Request::get('sitioWeb');
    	   $negocio->telefono=Request::get('telefono');
-   	   $negocio->rubro=Request::get('rubro');
    	   $negocio->entidad=Request::get('entidad');
    	   $negocio->estado=Request::get('estado');
    	   $negocio->latitud=Request::get('latitud');
@@ -89,7 +90,7 @@ class NegocioController extends Controller {
 
      						  foreach ( $_FILES['fotos']['name'] as $name)
 							{
-								 	$url[]='public/img/negocio/'.rand(1,5).$name;
+								 	$url[]='public/img/negocio/'.rand(1,5000).$name;
 							}
 
 
@@ -119,6 +120,37 @@ class NegocioController extends Controller {
 
             
          }//end if
+
+
+                      /*almacena rubros*/
+
+                        $rubros=Request::get('rubro');
+
+                        //var_dump($r)or die();
+
+                        $cantRubros=count($rubros);
+
+  						
+  						for($i=0;$i<$cantRubros;$i++){
+  							
+
+  							$negocioRubro= new NegocioRubro();
+
+  							$negocioRubro->idNegocioF=$id;
+  							$negocioRubro->idRubroF=$rubros[$i];
+  							$negocioRubro->save();
+
+
+
+  						}
+
+
+
+
+
+
+
+
 
 
 

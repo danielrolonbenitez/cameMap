@@ -2,18 +2,18 @@
 
 @section('content')
 	<script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
-
-				<form  class="form-inline" role="form"   id="negocioForm" action="{{route('negocioStore')}}" method="POST" enctype="multipart/form-data" style="margin-left:25%">
+ 
+				<form  class="" role="form"   id="negocioForm" action="{{route('negocioStore')}}" method="POST" enctype="multipart/form-data" style="margin-left:25%">
 								
-							
+				<div class="row"> 
                                              
-
+									<div class="col-lg-4">
                                              <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 												<input type="hidden" name="latitud" id="latitud" value="" />
 												<input type="hidden" name="longitud" id="longitud" value="" />
 											 
 
-							<div class="form-group">
+							
 											    <label for="razonSocial">Razon Social:</label><br>
 											    <input type="text" class="form-control" name="razonSocial" id="razonSocial"><br>
 											  
@@ -50,7 +50,7 @@
 
 									</div>
 												
-								<div class="form-group">
+								<div class="form-group col-lg-4">
 											    <label for="sitioWeb">Sitio Web:</label><br>
 											    <input type="text" class="form-control" name="sitioWeb" id="sitioWeb"><br>
 											
@@ -60,24 +60,66 @@
 											    <label for="telefono">Telefono:</label><br>
 											    <input type="text" class="form-control" name="telefono" id="telefono"><br>
 
-											 
-
-											    <label for="rubro">Rubro:</label><br>
-											    <input type="text" class="form-control" name="rubro" id="rubro"><br>
-
-											  
-
-
-											 
+											 	
 											    <label for="entidad">Entidad:</label><br>
-											    <input type="text" class="form-control" name="entidad" id="entidad">
+											     <select  class="form-control"  id="entidad" name="entidad" style="width:196px;">
+											     	<option value='0'>Ninguna</option>
+											      <?php foreach($entidades as $entidad){
+
+															echo "<option value='{$entidad->idEntidad}'>{$entidad->nombre}</option>";
+													  }
+
+												  ?>
+												</select>
 												<input type="checkbox" name="estado" value="1">Activo<br>
-										
 
 
 									</div>
+						
+						</div><!--end rows-->
+
+  									<div class="row">
+
+											<div class="col-lg-3">
+													    <label for="rubro">Rubro:</label><br>
+
+													    <!--begin rubro-->
+													    <select  class="form-control"  id="origen" multiple="multiple" style="width:196px;">
+																<?php
+
+															foreach($rubros as $rubro){
+
+																	echo "<option value='{$rubro->idRubro}'>{$rubro->nombre}</option>";
+															}
+
+														?>
+
+													
+
+														</select>
+												</div>
+												<div class="col-lg-2" style="margin-top:40px">
+													<input type="button" class="pasar izq" value="Pasar »"><input type="button" class="quitar der" value="« Quitar"><br />
+													<input type="button" class="pasartodos izq" value="Todos »"><input type="button" class="quitartodos der" value="« Todos">
+												</div>
+
+											<div class="col-lg-4" style="margin-top:25px">   
+												<select name="rubro[]" id="rubro" multiple="multiple" style="width:197px;height:85px"></select>
+											</div>
+											  
+											  <!--end rubro-->
 
 
+
+
+
+											 
+										
+
+
+									
+
+								</div><!--end rows-->
 
 							
                                 
@@ -94,7 +136,7 @@
 					 <div clas="form-group">
 									
 								 <span style="font-weight:bold">Marque Ubicación</span><br>
-				                  <div  id="mapa"   style="width:400px;height:300px;"></div>
+				                  <div  id="mapa"   style="width:632px;height:300px;"></div>
 				                  <input id="pac-input" class="controls col-lg-6 col-lg-offset-1" type="text" placeholder="Buscar"/>
 
 
@@ -208,5 +250,31 @@ $('select#provincia').on('change',function(){
 
 
 </script>
+
+
+<!--script for rubros-->
+
+
+<script>
+		$('.pasar').click(function() { return !$('#origen option:selected').remove().appendTo('#rubro'); });  
+		$('.quitar').click(function() { return !$('#rubro option:selected').remove().appendTo('#origen'); });
+		$('.pasartodos').click(function() { $('#origen option').each(function() { $(this).remove().appendTo('#rubro'); }); });
+		$('.quitartodos').click(function() { $('#rubro option').each(function() { $(this).remove().appendTo('#origen'); }); });
+		
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
 
 @endsection

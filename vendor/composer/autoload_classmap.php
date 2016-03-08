@@ -6,10 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CreateEntidadesTable' => $baseDir . '/database/migrations/2016_03_07_151123_create_entidades_table.php',
     'CreateFotosTable' => $baseDir . '/database/migrations/2016_03_03_182016_create_fotos_table.php',
-    'CreateNegocio' => $baseDir . '/database/migrations/2016_03_03_140221_create_negocio.phps_table.php',
+    'CreateNegociosRubrosTable' => $baseDir . '/database/migrations/2016_03_07_140011_create_negocios_rubros_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
-    'CreateProvinciasTable' => $baseDir . '/database/migrations/2016_02_26_203529_create_provincias_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
@@ -411,6 +411,7 @@ return array(
     'PHP_Token_XOR_EQUAL' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD_FROM' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
+    'Rubros' => $baseDir . '/database/migrations/2016_03_07_160906_Rubros.php',
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',
     'SebastianBergmann\\Comparator\\Comparator' => $vendorDir . '/sebastian/comparator/src/Comparator.php',
     'SebastianBergmann\\Comparator\\ComparisonFailure' => $vendorDir . '/sebastian/comparator/src/ComparisonFailure.php',
